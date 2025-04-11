@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Server Slider</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            overflow-x: hidden;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Full viewport height */
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+            display: flex;
+            align-items: center;
+            color: white;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide-content {
+            padding: 0 10%;
+            max-width: 50%;
+        }
+
+        @media (max-width: 768px) {
+            .slide-content {
+                max-width: 80%;
+            }
+        }
+
+        h2 {
+            font-size: 3.5vw;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        p {
+            font-size: 1.2vw;
+            margin-bottom: 2rem;
+            line-height: 1.6;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            h2 {
+                font-size: 2rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.8vw 2vw;
+            background-color: #2196F3;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            text-transform: uppercase;
+            transition: background-color 0.3s, transform 0.3s;
+            font-size: 1vw;
+        }
+
+        .btn:hover {
+            background-color: #0b7dda;
+            transform: translateY(-3px);
+        }
+        
+        @media (max-width: 768px) {
+            .btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+        
+        .btn-purple {
+            background-color: #9c27b0;
+        }
+        
+        .btn-purple:hover {
+            background-color: #7b1fa2;
+        }
+        
+        .btn-orange {
+            background-color: #ff9800;
+        }
+        
+        .btn-orange:hover {
+            background-color: #e68a00;
+        }
+
+        .slider-nav {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            z-index: 10;
+        }
+
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s, background-color 0.3s;
+        }
+
+        .slider-dot.active {
+            background-color: white;
+            transform: scale(1.2);
+        }
+
+        .slider-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            background-color: rgba(0,0,0,0.3);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 24px;
+            border-radius: 50%;
+            z-index: 10;
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .slider-arrow:hover {
+            background-color: rgba(0,0,0,0.5);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .prev {
+            left: 20px;
+        }
+
+        .next {
+            right: 20px;
+        }
+
+        .promo-code {
+            color: #ff6e9c;
+            font-weight: bold;
+        }
+        
+        /* Background overlay */
+        .slide::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+        
+        .slide-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        /* Additional styling for better appearance */
+        .minecraft-bg {
+            background-image: url('/api/placeholder/1920/1080');
+        }
+        
+        .minecraft-discount-bg {
+            background-image: url('/api/placeholder/1920/1080');
+        }
+        
+        .dedicated-servers-bg {
+            background-image: url('/api/placeholder/1920/1080');
+        }
+    </style>
+</head>
+<body>
+    <div class="slider-container">
+        <!-- Slide 1 - Minecraft Servers -->
+        <div class="slide active minecraft-bg">
+            <div class="slide-content">
+                <h2 style="color: #4fc3f7;">Minecraft Servers</h2>
+                <p>Kick off your adventure with premium servers at a pocket-friendly price.<br>
+                   Supported by a dedicated team available 24/7.<br>
+                   And risk free 48-hour money back!</p>
+                <a href="#" class="btn">Buy Now ></a>
+            </div>
+        </div>
+        
+        <!-- Slide 2 - 10% Off First Month -->
+        <div class="slide minecraft-discount-bg">
+            <div class="slide-content">
+                <h2 style="color: #e040fb;">10% OFF First Month</h2>
+                <p>Get started now, and use <span class="promo-code">EARP2023</span> to get 10% off your first month.</p>
+                <a href="#" class="btn btn-purple">Buy Now ></a>
+            </div>
+        </div>
+        
+        <!-- Slide 3 - Dedicated Servers -->
+        <div class="slide dedicated-servers-bg">
+            <div class="slide-content">
+                <h2 style="color: #ff9800;">DEDICATED SERVERS</h2>
+                <p>Dedicated machines for your projects. Let us handle the tough and frustrating parts so you can focus on the essentials.</p>
+                <a href="#" class="btn btn-orange">Buy Now ></a>
+            </div>
+        </div>
+        
+        <!-- Slider Navigation Dots -->
+        <div class="slider-nav">
+            <div class="slider-dot active" data-slide="0"></div>
+            <div class="slider-dot" data-slide="1"></div>
+            <div class="slider-dot" data-slide="2"></div>
+        </div>
+        
+        <!-- Slider Navigation Arrows -->
+        <div class="slider-arrow prev">&#10094;</div>
+        <div class="slider-arrow next">&#10095;</div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.slider-dot');
+            const prevBtn = document.querySelector('.prev');
+            const nextBtn = document.querySelector('.next');
+            let currentSlide = 0;
+            
+            // Set interval for automatic slideshow
+            let slideInterval = setInterval(nextSlide, 5000);
+            
+            // Function to reset the slideshow timer
+            function resetInterval() {
+                clearInterval(slideInterval);
+                slideInterval = setInterval(nextSlide, 5000);
+            }
+            
+            // Function to show a specific slide
+            function showSlide(n) {
+                slides.forEach(slide => slide.classList.remove('active'));
+                dots.forEach(dot => dot.classList.remove('active'));
+                
+                currentSlide = (n + slides.length) % slides.length;
+                
+                slides[currentSlide].classList.add('active');
+                dots[currentSlide].classList.add('active');
+                
+                resetInterval();
+            }
+            
+            // Next slide function
+            function nextSlide() {
+                showSlide(currentSlide + 1);
+            }
+            
+            // Previous slide function
+            function prevSlide() {
+                showSlide(currentSlide - 1);
+            }
+            
+            // Event listeners for navigation
+            prevBtn.addEventListener('click', prevSlide);
+            nextBtn.addEventListener('click', nextSlide);
+            
+            // Event listeners for dots
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => showSlide(index));
+            });
+            
+            // Handle window resize for better responsiveness
+            window.addEventListener('resize', function() {
+                // Adjust any additional responsive elements if needed
+            });
+            
+            // Handle keyboard navigation
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'ArrowLeft') {
+                    prevSlide();
+                } else if (e.key === 'ArrowRight') {
+                    nextSlide();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
